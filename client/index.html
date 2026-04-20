@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Campus Resource Booking</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <div class="nav-brand">📚 Campus Booking System</div>
+      <div class="nav-links">
+        <button onclick="goToLogin()" class="btn-nav">Login</button>
+        <button onclick="goToRegister()" class="btn-nav">Register</button>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <h1>Welcome to Smart Campus Resource Booking</h1>
+      <p>Book campus resources easily and efficiently</p>
+      <div class="hero-buttons">
+        <button onclick="goToLogin()" class="btn btn-primary">Login</button>
+        <button onclick="goToRegister()" class="btn btn-secondary">Register</button>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🏫</div>
+        <h3>Computer Labs</h3>
+        <p>Book computer labs for your projects and assignments</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h3>Meeting Rooms</h3>
+        <p>Reserve meeting rooms for team discussions</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏀</div>
+        <h3>Sports Facilities</h3>
+        <p>Book sports courts and athletic facilities</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📖</div>
+        <h3>Study Spaces</h3>
+        <p>Reserve quiet study areas in the library</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  function goToLogin() {
+  window.location.href = 'login.html';
+}
+
+function goToRegister() {
+  window.location.href = 'login.html?mode=register';
+}
+  </script>
+</body>
+</html>

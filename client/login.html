@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Campus Booking</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <span class="brand-logo">🎓</span>
+        <h1>Campus Booking</h1>
+        <p>Smart resource management system</p>
+      </div>
+
+      <!-- Role Selection -->
+      <div id="roleSelection">
+        <h3 style="text-align:center; margin-bottom:20px; font-weight:700;">Continue as</h3>
+        <div class="role-cards">
+          <div class="role-card" onclick="selectRole('user')">
+            <div class="role-icon">👤</div>
+            <div class="role-title">User</div>
+            <div class="role-desc">Book campus resources</div>
+          </div>
+          <div class="role-card" onclick="selectRole('admin')">
+            <div class="role-icon">🛡️</div>
+            <div class="role-title">Admin</div>
+            <div class="role-desc">Manage system & bookings</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Auth Form -->
+      <div id="authSection" style="display:none;">
+        <div class="back-btn" onclick="goBackToRole()">← Back</div>
+        <div id="selectedRoleBadge" class="role-badge"></div>
+
+        <h2 id="authTitle">Login</h2>
+
+        <div id="message" class="message" style="display:none;"></div>
+
+        <form id="authForm">
+          <div id="registerFields" style="display:none;">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="fullName" placeholder="Enter your full name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" placeholder="Enter your email">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="Enter your password">
+          </div>
+          <button type="submit" id="submitBtn" class="btn btn-primary" style="width:100%;">Login</button>
+        </form>
+
+        <div id="toggleAuth">
+          Don't have an account? <a href="#" onclick="toggleAuthMode(event)">Register here</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>

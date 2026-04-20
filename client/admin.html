@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Campus Booking</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-icon">🛡️</span>
+        <span class="brand-name">Campus<br><strong>Admin</strong></span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" onclick="showAdminPage('home', this)">
+          <span class="nav-icon">🏠</span><span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showAdminPage('bookings', this)">
+          <span class="nav-icon">📋</span><span>All Bookings</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showAdminPage('users', this)">
+          <span class="nav-icon">👥</span><span>Manage Users</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showAdminPage('resources', this)">
+          <span class="nav-icon">🏛️</span><span>Manage Resources</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar" style="background:#7c3aed;">A</div>
+          <div class="user-details">
+            <div class="user-name" id="adminName">Admin</div>
+            <div class="user-email">Administrator</div>
+          </div>
+        </div>
+        <button onclick="adminLogout()" class="logout-btn">⏻ Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-title" id="adminPageTitle">Admin Dashboard</div>
+        <div class="topbar-user"><span class="admin-badge">🛡️ Admin</span></div>
+      </header>
+
+      <!-- Admin Home -->
+      <div id="admin-page-home" class="page active">
+        <div class="stats-grid">
+          <div class="stat-card blue">
+            <div class="stat-icon">👥</div>
+            <div class="stat-info">
+              <div class="stat-number" id="stat-users">0</div>
+              <div class="stat-label">Total Users</div>
+            </div>
+          </div>
+          <div class="stat-card orange">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-info">
+              <div class="stat-number" id="stat-pending">0</div>
+              <div class="stat-label">Pending Bookings</div>
+            </div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-icon">✅</div>
+            <div class="stat-info">
+              <div class="stat-number" id="stat-confirmed">0</div>
+              <div class="stat-label">Confirmed Bookings</div>
+            </div>
+          </div>
+          <div class="stat-card purple">
+            <div class="stat-icon">🏛️</div>
+            <div class="stat-info">
+              <div class="stat-number" id="stat-resources">0</div>
+              <div class="stat-label">Total Resources</div>
+            </div>
+          </div>
+        </div>
+        <div class="quick-actions">
+          <h2>Quick Actions</h2>
+          <div class="action-cards">
+            <div class="action-card" onclick="showAdminPage('bookings', document.querySelector('[onclick*=bookings]'))">
+              <div class="action-icon">📋</div>
+              <h3>Review Bookings</h3>
+              <p>Approve or reject pending bookings</p>
+              <span class="action-arrow">→</span>
+            </div>
+            <div class="action-card highlight" onclick="showAdminPage('resources', document.querySelector('[onclick*=resources]'))">
+              <div class="action-icon">🏛️</div>
+              <h3>Add Resource</h3>
+              <p>Add new campus facilities</p>
+              <span class="action-arrow">→</span>
+            </div>
+            <div class="action-card" onclick="showAdminPage('users', document.querySelector('[onclick*=users]'))">
+              <div class="action-icon">👥</div>
+              <h3>Manage Users</h3>
+              <p>View and control user accounts</p>
+              <span class="action-arrow">→</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- All Bookings -->
+      <div id="admin-page-bookings" class="page">
+        <div class="page-header">
+          <h2>All Bookings</h2>
+          <p>Approve or reject booking requests</p>
+        </div>
+        <div class="filter-bar">
+          <button class="filter-btn active" onclick="filterBookings('all', this)">All</button>
+          <button class="filter-btn" onclick="filterBookings('pending', this)">⏳ Pending</button>
+          <button class="filter-btn" onclick="filterBookings('confirmed', this)">✅ Confirmed</button>
+          <button class="filter-btn" onclick="filterBookings('cancelled', this)">❌ Cancelled</button>
+        </div>
+        <div id="adminBookingsList" class="bookings-list"></div>
+      </div>
+
+      <!-- Manage Users -->
+      <div id="admin-page-users" class="page">
+        <div class="page-header">
+          <h2>Manage Users</h2>
+          <p>View and control all user accounts</p>
+        </div>
+        <div id="adminUsersList" class="users-table-wrap"></div>
+      </div>
+
+      <!-- Manage Resources -->
+      <div id="admin-page-resources" class="page">
+        <div class="page-header">
+          <h2>Manage Resources</h2>
+          <p>Add, edit or remove campus facilities</p>
+        </div>
+
+        <!-- Add Resource Form -->
+        <div class="book-container" style="margin-bottom:32px;">
+          <h3 style="margin-bottom:20px; font-weight:700;">➕ Add New Resource</h3>
+          <div id="resourceMessage" class="message" style="display:none;"></div>
+          <form id="addResourceForm" class="booking-form">
+            <div class="form-group">
+              <label>Resource Name</label>
+              <input type="text" id="resourceName" placeholder="e.g. Lab 3">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <input type="text" id="resourceDesc" placeholder="e.g. Computer lab in Block C">
+            </div>
+            <div class="form-group">
+              <label>Capacity</label>
+              <input type="number" id="resourceCapacity" placeholder="e.g. 30" min="1">
+            </div>
+            <button type="submit" class="btn btn-primary">➕ Add Resource</button>
+          </form>
+        </div>
+
+        <!-- Resources List -->
+        <div class="page-header">
+          <h3>Existing Resources</h3>
+        </div>
+        <div id="adminResourcesList" class="resources-grid"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Logout Warning Modal -->
+  <div id="logoutModal" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-icon">⚠️</div>
+      <h3>Confirm Logout</h3>
+      <p>Are you sure you want to logout from the admin panel?</p>
+      <div class="modal-actions">
+        <button onclick="confirmLogout()" class="btn btn-danger">Yes, Logout</button>
+        <button onclick="cancelLogout()" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
